@@ -1,0 +1,17 @@
+{
+  "editor.snippetSuggestions": "top",
+  "editor.quickSuggestions": {
+    "other": true,
+    "comments": false,
+    "strings": true
+  },
+  "editor.suggestOnTriggerCharacters": true,
+  "editor.tabCompletion": "on",
+  "files.associations": {
+    "*.jsx": "javascriptreact"
+  },
+  "emmet.includeLanguages": {
+    "javascript": "javascriptreact",
+    "javascriptreact": "javascriptreact"
+  }
+}
