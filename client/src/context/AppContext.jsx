@@ -1,4 +1,4 @@
-import { createContext, useState, useContext, useEffect } from "react";
+import { createContext, useState, useContext, useEffect, useCallback } from "react";
 import api from "../api/api";
 import toast from "react-hot-toast";
 import { useNavigate } from "react-router-dom";
@@ -11,10 +11,10 @@ export function AppContextProvider({children}) {
  
 // Auth States
 const [user, setUser] = useState(null);
-const [loadingUser, setLoadingUser] = useState(false);
+const [loadingUser, setLoadingUser] = useState(true);
 
  // Auth Actions
- const checkSession = async () => {
+ const checkSession = useCallback(async () => {
     try {
         setLoadingUser(true);
         const {data} = await api.get("/api/auth/me");
@@ -24,7 +24,7 @@ const [loadingUser, setLoadingUser] = useState(false);
     } finally {
         setLoadingUser(false);
     }
- }
+ }, []);
 
 
 
@@ -61,7 +61,7 @@ const [loadingUser, setLoadingUser] = useState(false);
 
  useEffect(() => {
    checkSession();
- }, [checkSession])
+ }, [checkSession]);
  
 
     return(

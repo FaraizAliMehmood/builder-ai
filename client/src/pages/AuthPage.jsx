@@ -22,6 +22,7 @@ const isLogin = mode === 'login';
    const handleSubmit = async (e) => {
         e.preventDefault();
         setError("");
+        setLoading(true);
         try {
             if(mode === "login"){
                 await login(email,password);
@@ -30,7 +31,7 @@ const isLogin = mode === 'login';
             }
             navigate("/");
         } catch (err) {
-           setError(err.message || mode === "login" ? "Invalid email and password" : "Registration failed");
+           setError(err.message || (mode === "login" ? "Invalid email and password" : "Registration failed"));
         } finally {
             setLoading(false);
         }
