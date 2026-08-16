@@ -59,20 +59,20 @@ const logout = async () => {
 }
 
 //Projects Actions
-const loadProjects = async () => {
+const loadProjects = useCallback(async () => {
     if(!user) return;
     try {
 
         const {data} = await api.get("/api/projects")
         setProjects(data)
-        
+
     } catch (err) {
         console.error("Failed to list projects:",err);
         toast.error("Failed to load projects list")
     }finally{
         setLoadingProjects(false);
     }
-}
+}, [user])
 
 const loadProject = async (id, silent = false) => {
      if(!user) return;
@@ -102,19 +102,19 @@ const loadProject = async (id, silent = false) => {
 
 //Automatically poll active project status if generating or pending
 useEffect(() => {
-if(!activeProject?._id || !user) return;
+if(!activeProject?._id || !user) {
+    setChatLoading(false);
+    return;
+}
 const isOnging = activeProject.status === "generating" || activeProject.status === "pending" || activeProject.status === "revising";
+setChatLoading(isOnging);
 if(isOnging){
-    setChatLoading(true)
     const interval = setInterval(() => {
         loadProject(activeProject._id, true)
     }, 2000);
     return ()=> clearInterval(interval);
-    {
-        setChatLoading(false)
-    }
 }
-  
+
 }, [activeProject?._id,activeProject?.status,loadProject,user])
 
 const handleGenerate = useCallback(async (prompt)=>{

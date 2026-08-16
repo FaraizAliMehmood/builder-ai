@@ -22,6 +22,7 @@ const PromptInput = ({onSubmit, loading=false, placeholder= "Describe the websit
     const handleKeyDown = (e)=>{
         if(e.key === "Enter" && !e.shiftKey){
             e.preventDefault();
+            handleSubmit(e);
         }
     }
 

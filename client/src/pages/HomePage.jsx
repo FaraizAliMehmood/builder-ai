@@ -90,9 +90,10 @@ autoFocus/>
        {
         projects.map((p)=>(
           <div
+          key={p._id} className="bg-white/5 border border-white/1- rounded-lg px-4 py-3 flex items-center justify-between group hover:border-white/20 hover:bg-white/10 backdrop-blur-md transition-all">
+          <button
           onClick={()=> navigate(`/builder/${p._id}`) }
-          key={p._id} className="bg-white/5 border border-white/1- rounded-lg px-4 py-3 flex items-center justify-between group hover:border-white/20 hover:bg-white/10 cursor-pointer backdrop-blur-md transition-all ">
-          <div className="flex-1 min-w-0">
+          className="flex-1 min-w-0 text-left cursor-pointer bg-transparent border-none p-0">
          <p className="text-sm font-medium text-white truncate">{p.name}</p>
          <div className="flex items-center gap-3 mt-0.5">
           <span className="text-xs text-zinc-300 flex items-center gap-1">
@@ -100,13 +101,13 @@ autoFocus/>
           </span>
           <span className="text-xs text-white/60 font-medium">v{p.version}</span>
          </div>
-          </div>
+          </button>
 
       <div className='flex items-center gap-2'>
          <button
          onClick={(e)=>{
           e.stopPropagation();
-          handleDelete(p_id);
+          handleDelete(p._id);
          }}
          className='p-1.5 rounded-md text-zinc-200 hover:text-red-400 hover:bg-white/10 opacity-0 group-hover:opacity-100 transition-opacity'
          >
